@@ -111,9 +111,7 @@ class cvsAPI(object):
         return targetIPaddress
 
     def buildMountnameforCFT(self):
-        creationToken = create_fileSystems()[1]
-        mountname = target_information() + "/" + creationToken
-        print(mountname)
+
 
 
 cvs = cvsAPI()
