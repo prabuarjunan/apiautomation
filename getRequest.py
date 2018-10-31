@@ -4,8 +4,7 @@ import time
 
 #Base URL
 CVAPI_BASEURL="https://cds-aws-bundles.netapp.com:8080/v1"
-CVAPI_APIKEY = "b3ZNd2lxN0VaV0U1akNaRW9JZlFKbUJkM0xNWEwz"
-CVAPI_SECRETKEY = "SThKYXFFeVVsSVROU3BhNjhjekdQY0VteHl5ZG1h"
+
 
 
 #Headers
