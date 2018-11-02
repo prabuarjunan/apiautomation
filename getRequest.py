@@ -115,7 +115,7 @@ def target_information():
 
 def buildMountnameforCFT():
     creationToken = create_fileSystems()[1]
-    mountname = target_information() + "/" + creationToken
+    mountname = "/" + creationToken
 
     print(mountname)
 
@@ -125,8 +125,8 @@ get_fileSystemsdetails()
 #update_fileSystems()
 #delete_filesystems()
 #create_snapshot()
-#target_information()
-buildMountnameforCFT()
+target_information()
+#buildMountnameforCFT()
 
 
 

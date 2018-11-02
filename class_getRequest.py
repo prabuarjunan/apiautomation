@@ -49,25 +49,27 @@ class cvsAPI(object):
     # create Volume/filssystem
     def create_fileSystems(self):
         payload = {
-            "name": "PythonScriptTest7",
-            "creationToken": "Prabu-test-volume8",
+            "name": "PythonScriptTest36",
+            "creationToken": "Prabu-test-volume36",
             "region": "us-east",
             "serviceLevel": "basic",
-            "quotaInBytes": 10000000000000
+            "quotaInBytes": 1000000000000
         }
         postfileSystems = requests.post(filesystemURL, data=json.dumps(payload), headers=HEADERS)
         print("FileSystem Created", filesystemURL, postfileSystems.content)
         datafilesystems = postfileSystems.json()
         datafilesystems1 = datafilesystems['fileSystemId']
-        #exportname = datafilesystems['creationToken']
+        exportname = datafilesystems['creationToken']
         time.sleep(30)
         datafilesystems1 = datafilesystems['fileSystemId']
-        return datafilesystems1
+        self.test = datafilesystems1
+        self.export = exportname
+        return datafilesystems1, exportname
 
     #update Created Volume/Filesystem
     def update_fileSystems(self):
         payload1 = {
-        "creationToken": "Prabu-test-volume6",
+        "creationToken": "Prabu-test-volume",
         "region": "us-east",
         "serviceLevel": "extreme",
         "quotaInBytes": 10000000000000
@@ -100,8 +102,8 @@ class cvsAPI(object):
             print("snapshot creation failed", createSnapshot.content)
 
     # Target IP address information
-    def target_information(self, datafilesystems1):
-        filesystemID = datafilesystems1
+    def target_information(self):
+        filesystemID = self.test
         gettargetInfoURL = filesystemURL + "/" + filesystemID + "/" + "MountTargets"
         gettargetinfo = requests.get(gettargetInfoURL, headers=HEADERS)
         time.sleep(30)
@@ -109,23 +111,17 @@ class cvsAPI(object):
         time.sleep(30)
         targetIPaddress = targetJSON[0]['ipAddress']
         print("target IP address is", targetIPaddress)
+        self.targetIP = targetIPaddress
         return targetIPaddress
 
     def buildMountnameforCFT(self):
-        creationToken = create_fileSystems()[1]
-        mountname = target_information() + "/" + creationToken
+        export = self.export
+        ipAddress = self.targetIP
+        mountname = ipAddress + "/" + export
+        self.mountname = mountname
         print(mountname)
+        return mountname
 
-
-cvs = cvsAPI()
-cvs.get_fileSystems()
-cvs.get_fileSystemsdetails()
-cvs.create_fileSystems()
-    #update_fileSystems()
-    #delete_filesystems()
-#cvs.create_snapshot()
-cvs.target_information()
-#cvs.buildMountnameforCFT()
 
 
 
