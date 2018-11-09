@@ -3,9 +3,7 @@ import json
 import time
 
 #Base URL
-CVAPI_BASEURL="https://cds-aws-bundles.netapp.com:8080/v1"
-CVAPI_APIKEY = "b3ZNd2lxN0VaV0U1akNaRW9JZlFKbUJkM0xNWEwz"
-CVAPI_SECRETKEY = "SThKYXFFeVVsSVROU3BhNjhjekdQY0VteHl5ZG1h"
+
 
 
 #Headers
@@ -30,7 +28,7 @@ class cvsAPI(object):
     # get FileSystems
     def get_fileSystems(self):
         getResult = requests.get(url=filesystemURL, headers=HEADERS)
-        print(filesystemURL, getResult.status_code)
+        print("File system creation success, the response code : ", getResult.status_code)
         fileSystemsData = getResult.json()
         for i in fileSystemsData[:-1]:
             fileSystemId = (i['fileSystemId'])
@@ -49,8 +47,8 @@ class cvsAPI(object):
     # create Volume/filssystem
     def create_fileSystems(self):
         payload = {
-            "name": "PythonScriptTest36",
-            "creationToken": "Prabu-test-volume36",
+            "name": "PythonScriptTest48",
+            "creationToken": "Prabu-test-volume48",
             "region": "us-east",
             "serviceLevel": "basic",
             "quotaInBytes": 1000000000000
@@ -110,16 +108,16 @@ class cvsAPI(object):
         targetJSON = gettargetinfo.json()
         time.sleep(30)
         targetIPaddress = targetJSON[0]['ipAddress']
-        print("target IP address is", targetIPaddress)
+        print("Target IP address is :", targetIPaddress)
         self.targetIP = targetIPaddress
         return targetIPaddress
 
     def buildMountnameforCFT(self):
         export = self.export
         ipAddress = self.targetIP
-        mountname = ipAddress + "/" + export
+        mountname = ipAddress + ":/" + export
         self.mountname = mountname
-        print(mountname)
+        print("Export name : ", mountname)
         return mountname
 
 
